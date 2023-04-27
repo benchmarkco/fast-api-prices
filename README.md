@@ -11,3 +11,5 @@
  - Instalar dependecias pip install - r requierements.txt
  - Probar la aplicacion localmente uvicorn main:app --host 0.0.0.0
  - Ingresar a la ruta especificada en la terminal
+
+# Como correr la aplicacion usando un docker container

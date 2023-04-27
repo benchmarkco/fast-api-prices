@@ -13,7 +13,9 @@ h11==0.14.0
 html5lib==1.1
 httptools==0.5.0
 idna==3.4
+Jinja2==3.1.2
 lxml==4.9.2
+MarkupSafe==2.1.2
 multitasking==0.0.11
 numpy==1.24.3
 pandas==2.0.0

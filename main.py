@@ -1,8 +1,13 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+
 import yfinance as yf
 
-
 app = FastAPI()
+app.mount("/static", StaticFiles(directory = "static"), name = "static")
+templates = Jinja2Templates(directory = "templates")
 
 @app.get("/")
 async def root():
@@ -22,3 +27,7 @@ async def get_stock_info(stock: str):
 
     # Return the stock data as a JSON response
     return {"symbol": stock, "time_series_data": stock_data_json}
+
+@app.get("/front", response_class = HTMLResponse)
+async def front(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
