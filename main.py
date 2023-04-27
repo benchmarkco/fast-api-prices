@@ -30,4 +30,4 @@ async def get_stock_info(stock: str):
 
 @app.get("/front", response_class = HTMLResponse)
 async def front(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("login.html", {"request": request})
