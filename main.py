@@ -9,13 +9,9 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory = "static"), name = "static")
 templates = Jinja2Templates(directory = "templates")
 
-@app.get("/")
-async def root():
-    return {"message": "Hello, World!"}
-
-@app.get("/hello")
-async def hello():
-    return {"message": "Hello, santiiii!"}
+@app.get("/", response_class = HTMLResponse)
+async def front(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
 
 @app.get("/stock_info/{stock}")
 async def get_stock_info(stock: str):
@@ -28,6 +24,3 @@ async def get_stock_info(stock: str):
     # Return the stock data as a JSON response
     return {"symbol": stock, "time_series_data": stock_data_json}
 
-@app.get("/front", response_class = HTMLResponse)
-async def front(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})

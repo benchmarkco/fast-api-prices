@@ -1,3 +1,7 @@
 scripts:
     dev: uvicorn main:app --host 0.0.0.0 --reload
+    build: docker build -t benchmarkapp .
+    up: docker run -p 80:80 benchmarkapp
+    inspect: docker exec -it <containerid> bash
+
 

@@ -13,3 +13,7 @@
  - Ingresar a la ruta especificada en la terminal
 
 # Como correr la aplicacion usando un docker container
+
+   - Construir la imagen: docker build -t myimage .
+   - Para ver las imagenes: docker images
+   -  
