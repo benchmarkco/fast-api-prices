@@ -14,16 +14,16 @@
                 <div class="card-body">
                   <h5 class="card-title text-center fw-bold">Ingreso de usuarios</h5>
                   
-                  <form action="" class="form my-3">
+                  <form action="/login" class="form my-3" method="post">
                     <label class="my-3" for="form-user"> Username:</label>
-                    <input class="form-control" type="text" name="" id="form-user" placeholder="Ingresa tu username">
+                    <input class="form-control" type="text" name="name" id="form-user" placeholder="Ingresa tu username">
                 
                     <label class="my-3" for="form-password"> Password:</label>
-                    <input class="form-control" type="password" name="" id="form-password" placeholder="Ingresa tu clave">
-                
+                    <input class="form-control" type="password" name="password" id="form-password" placeholder="Ingresa tu clave">
+                    
                 </form>
                 <p>
-                    <button class="form-control btn btn-success">Ingresa</button>
+                    <button  id="ingresa" class="form-control btn btn-success">Ingresa</button>
                     <button class="form-control btn btn-outline-success my-3">Registrate</button>
                 </p>
                 </div>
@@ -32,5 +32,34 @@
         </div>
 
     </div>
+
+    <script>
+        const boton = document.querySelector("#ingresa");
+        boton.addEventListener("click", () => {
+        const data = { 
+            name: 'Some input data', 
+            password: 12345
+        };
+
+        fetch('http://localhost:8000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+            console.log(data);
+            })
+            .catch(error => {
+            console.error('Error:', error);
+        });
+
+        
+        }
+        
+        );
+    </script>
 </body>
 </html>

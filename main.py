@@ -2,6 +2,8 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.responses import RedirectResponse
+
 from pydantic import BaseModel
 
 import yfinance as yf
@@ -14,6 +16,11 @@ templates = Jinja2Templates(directory = "templates")
 async def front(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
+@app.get("/index", response_class = HTMLResponse)
+async def front_index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
 @app.get("/stock_info/{stock}")
 async def get_stock_info(stock: str):
     # Use yfinance to retrieve the stock data for the last 30 days
@@ -25,19 +32,17 @@ async def get_stock_info(stock: str):
     # Return the stock data as a JSON response
     return {"symbol": stock, "time_series_data": stock_data_json}
 
-class Item(BaseModel):
-    name: str
-    password: int 
-    
+ 
 @app.post("/login")
-async def login(item: Item):
+async def login(username: str = Form(...), password: str = Form(...)):
     # Access the parameters
     name = item.name
     password = item.password
 
     # Process the data and return a response
     # ...
-    return {"item": item}
+    print(name)
+    return RedirectResponse(url="https://fastapi.tiangolo.com/")
 
 
 
