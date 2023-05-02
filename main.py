@@ -1,14 +1,13 @@
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Request, Form, Response, status
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.responses import RedirectResponse
 
-from pydantic import BaseModel
-
 import yfinance as yf
 
 app = FastAPI()
+
 app.mount("/static", StaticFiles(directory = "static"), name = "static")
 templates = Jinja2Templates(directory = "templates")
 
@@ -16,10 +15,11 @@ templates = Jinja2Templates(directory = "templates")
 async def front(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
-@app.get("/index", response_class = HTMLResponse)
+@app.post("/index", response_class = HTMLResponse)
 async def front_index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-
+    username = request.cookies.get("username")
+    print(username)
+    return templates.TemplateResponse("index.html", {"request": request, "username": username})
 
 @app.get("/stock_info/{stock}")
 async def get_stock_info(stock: str):
@@ -34,15 +34,14 @@ async def get_stock_info(stock: str):
 
  
 @app.post("/login")
-async def login(username: str = Form(...), password: str = Form(...)):
-    # Access the parameters
-    name = item.name
-    password = item.password
+async def login( response: Response, request: Request ,username: str = Form(...), password: str = Form(...)):
 
-    # Process the data and return a response
-    # ...
-    print(name)
-    return RedirectResponse(url="https://fastapi.tiangolo.com/")
-
+    if username == "123a" and password == "123aa":
+        
+        response.set_cookie(key="username", value=username)   
+        print(request.cookies.get("username"))     
+        return RedirectResponse(url="/index")
+    else:
+        return "Incorrect username or password"
 
 

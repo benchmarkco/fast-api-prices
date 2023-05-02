@@ -16,14 +16,14 @@
                   
                   <form action="/login" class="form my-3" method="post">
                     <label class="my-3" for="form-user"> Username:</label>
-                    <input class="form-control" type="text" name="name" id="form-user" placeholder="Ingresa tu username">
+                    <input class="form-control" type="text" name="username" id="form-user" placeholder="Ingresa tu username">
                 
                     <label class="my-3" for="form-password"> Password:</label>
                     <input class="form-control" type="password" name="password" id="form-password" placeholder="Ingresa tu clave">
                     
+                    <button type="submit"  id="ingresa" class="form-control btn btn-success">Ingresa</button>
                 </form>
                 <p>
-                    <button  id="ingresa" class="form-control btn btn-success">Ingresa</button>
                     <button class="form-control btn btn-outline-success my-3">Registrate</button>
                 </p>
                 </div>
@@ -41,7 +41,7 @@
             password: 12345
         };
 
-        fetch('http://localhost:8000/login', {
+        fetch('https://benchmarkco-obscure-disco-wp56wq6g9qwcgqv9-8000.preview.app.github.dev/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
