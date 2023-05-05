@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.responses import RedirectResponse
-
+from pydantic import BaseModel
 import yfinance as yf
 
 app = FastAPI()
@@ -14,6 +14,12 @@ templates = Jinja2Templates(directory = "templates")
 @app.get("/", response_class = HTMLResponse)
 async def front(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
+
+@app.get("/index", response_class = HTMLResponse)
+async def front_index(request: Request):
+    username = request.cookies.get("username")
+    print(username)
+    return templates.TemplateResponse("index.html", {"request": request, "username": username})
 
 @app.post("/index", response_class = HTMLResponse)
 async def front_index(request: Request):
@@ -38,10 +44,12 @@ async def login( response: Response, request: Request ,username: str = Form(...)
 
     if username == "123a" and password == "123aa":
         
-        response.set_cookie(key="username", value=username)   
+        response.set_cookie(key="username", value = password)   
         print(request.cookies.get("username"))     
         return RedirectResponse(url="/index")
     else:
         return "Incorrect username or password"
+
+
 
 
