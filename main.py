@@ -38,18 +38,24 @@ async def get_stock_info(stock: str):
     # Return the stock data as a JSON response
     return {"symbol": stock, "time_series_data": stock_data_json}
 
- 
 @app.post("/login")
 async def login( response: Response, request: Request ,username: str = Form(...), password: str = Form(...)):
 
     if username == "123a" and password == "123aa":
-        
-        response.set_cookie(key="username", value = password)   
+        response.set_cookie(key="username", value = password)           
         print(request.cookies.get("username"))     
         return RedirectResponse(url="/index")
     else:
         return "Incorrect username or password"
 
 
+@app.get("/protected")
+async def protected(request: Request):
+    # Get the value of the "username" cookie from the request
+    username = request.cookies.get("username")
+    if username:
+        return {"message": f"Welcome, {username}!"}
+    else:
+        return {"error": "You are not authorized to access this page."}
 
 
