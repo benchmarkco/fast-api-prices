@@ -1,5 +1,9 @@
 # fast-api-prices
 
+# Instalar gcloud in Code spaces
+
+ - curl https://sdk.cloud.google.com | bash
+
 
 # Como correr la aplicacion de forma local:
 

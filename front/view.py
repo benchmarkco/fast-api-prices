@@ -9,6 +9,10 @@ templates = Jinja2Templates(directory = "templates")
 async def front(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
+@router.get("/home", response_class = HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("home.html", {"request": request})
+
 @router.get("/index", response_class = HTMLResponse)
 async def front_index_get(request: Request):
     username = request.cookies.get("username")
