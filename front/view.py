@@ -25,3 +25,8 @@ async def front_index(request: Request):
     print(username)
     return templates.TemplateResponse("index.html", {"request": request, "username": username})
 
+@router.get("/downloader", response_class = HTMLResponse)
+async def front_index(request: Request):
+    return templates.TemplateResponse("downloader/index.html", {"request": request})
+
+

@@ -1,5 +1,4 @@
 import yfinance as yf
-
 from fastapi import APIRouter
 
 router = APIRouter()
